@@ -1,7 +1,0 @@
-{
-  "root": false,
-  "globals": {
-    "fixture": true,
-    "test": true
-  }
-}
