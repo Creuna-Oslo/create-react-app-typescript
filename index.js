@@ -68,13 +68,13 @@ function writeFiles({
         path.join(projectPath, '.eslintrc.json')
       );
 
-      // api-helper
-      if (useApiHelper) {
-        fs.writeFileSync(
-          path.join(projectPath, 'source/js/api-helper.js'),
-          createApiHelper({ useAnalyticsHelper, useMessenger })
-        );
-      }
+      // // api-helper
+      // if (useApiHelper) {
+      //   fs.writeFileSync(
+      //     path.join(projectPath, 'source/js/api-helper.js'),
+      //     createApiHelper({ useAnalyticsHelper, useMessenger })
+      //   );
+      // }
 
       return resolve({
         messages: [

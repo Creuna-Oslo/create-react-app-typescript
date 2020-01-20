@@ -3,23 +3,45 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@creuna/codegen": "^0.2.3",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
+    "@types/classnames": "^2.2.9",
     "@types/jest": "^24.0.0",
     "@types/node": "^12.0.0",
     "@types/react": "^16.9.0",
     "@types/react-dom": "^16.9.0",
+    "@types/react-router-dom": "^5.1.3",
+    "classnames": "^2.2.6",
+    "copy-webpack-plugin": "^5.1.1",
+    "css-loader": "^3.4.2",
+    "expose-loader": "^0.7.5",
+    "mini-css-extract-plugin": "^0.9.0",
+    "node-sass": "^4.13.1",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
+    "react-router-dom": "^5.1.2",
     "react-scripts": "3.3.0",
-    "typescript": "~3.7.2"
+    "sass-loader": "^8.0.2",
+    "static-site-generator-webpack-plugin": "^3.4.2",
+    "suppress-chunks-webpack-plugin": "^1.0.5",
+    "ts-loader": "^6.2.1",
+    "typescript": "~3.7.2",
+    "webpack": "^4.41.5",
+    "webpack-bundle-analyzer": "^3.6.0",
+    "webpack-dev-server": "^3.10.1",
+    "webpack-manifest-plugin": "^2.2.0"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "analyze": "ode codegen/components && webpack --mode=production --env.analyzer",
+    "analyze:static": "node codegen/pages && webpack --progress --mode=production --env.static --env.analyzer",
+    "build": "node codegen/components && webpack --mode=production",
+    "build:static": "node codegen/pages && webpack --mode=production --env.static",
+    "dev": "node codegen/pages && webpack-dev-server --mode=development --env.static",
+    "lint": "eslint --ext js,jsx ./src",
+    "lint:fix": "eslint --ext js,jsx ./src --fix",
+    "test:ui": "testcafe chrome:headless ./tests/*.js"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -35,5 +57,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "webpack-cli": "^3.3.10"
   }
 }

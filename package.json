@@ -7,11 +7,12 @@
   },
   "contributors": [
     "Pelle bjerkestrand <pelle.bjerkestrand@creuna.no>",
-    "Asbjørn Hegdahl <asbjorn.hegdahl@creuna.no>"
+    "Asbjørn Hegdahl <asbjorn.hegdahl@creuna.no>",
+    "Marius Setalid <marius.setalid@creuna.no>"
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/Creuna-Oslo/create-react-app.git"
+    "url": "https://github.com/Creuna-Oslo/create-react-app-typescript.git"
   },
   "bin": {
     "creuna-new": "./bin/index.js"
