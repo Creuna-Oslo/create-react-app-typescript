@@ -58,8 +58,8 @@ module.exports = (env = {}, options = {}) => {
       extensions: [".js", ".ts", ".tsx"],
       modules: ["node_modules", path.resolve(__dirname)],
       alias: {
-        components: path.resolve("./components"),
-        assets: path.resolve("./assets")
+        components: path.resolve("./src/components"),
+        assets: path.resolve("./src/assets")
       }
     },
     module: {

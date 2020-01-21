@@ -2,6 +2,15 @@
   "name": "static-files",
   "version": "0.1.0",
   "private": true,
+  "scripts": {
+    "analyze": "node codegen/components && webpack --mode=production --env.analyzer",
+    "analyze:static": "node codegen/pages && webpack --progress --mode=production --env.static --env.analyzer",
+    "build": "node codegen/components && webpack --mode=production",
+    "build:static": "node codegen/pages && webpack --mode=production --env.static",
+    "dev": "node codegen/pages && webpack-dev-server --mode=development --env.static",
+    "lint": "tsc --noEmit && eslint '*/**/*.{js,ts,tsx}' --quiet --fix",
+    "test:ui": "testcafe chrome:headless ./tests/*.js"
+  },
   "dependencies": {
     "@creuna/codegen": "^0.2.3",
     "@testing-library/jest-dom": "^4.2.4",
@@ -33,32 +42,15 @@
     "webpack-dev-server": "^3.10.1",
     "webpack-manifest-plugin": "^2.2.0"
   },
-  "scripts": {
-    "analyze": "ode codegen/components && webpack --mode=production --env.analyzer",
-    "analyze:static": "node codegen/pages && webpack --progress --mode=production --env.static --env.analyzer",
-    "build": "node codegen/components && webpack --mode=production",
-    "build:static": "node codegen/pages && webpack --mode=production --env.static",
-    "dev": "node codegen/pages && webpack-dev-server --mode=development --env.static",
-    "lint": "eslint --ext js,jsx ./src",
-    "lint:fix": "eslint --ext js,jsx ./src --fix",
-    "test:ui": "testcafe chrome:headless ./tests/*.js"
-  },
-  "eslintConfig": {
-    "extends": "react-app"
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
-  },
   "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^2.17.0",
+    "@typescript-eslint/parser": "^2.17.0",
+    "eslint": "^6.8.0",
+    "eslint-config-prettier": "^6.9.0",
+    "eslint-plugin-prettier": "^3.1.2",
+    "eslint-plugin-react": "^7.18.0",
+    "prettier": "^1.19.1",
+    "testcafe": "^1.8.0",
     "webpack-cli": "^3.3.10"
   }
 }

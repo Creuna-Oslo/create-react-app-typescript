@@ -1,6 +1,6 @@
 /* eslint-env node */
 // NOTE: This file is run pre build and creates `app.components.js`.
-const { createComponentsFile } = require("@creuna/codegen");
+const { createComponentsFile } = require("../../../codegen/index");
 const path = require("path");
 
 const disclaimers = [
@@ -15,5 +15,6 @@ createComponentsFile({
   fileName: "app.components.tsx",
   outputPath: sourcePath,
   searchPath: path.join(sourcePath, "components"),
-  fileExtension: "tsx"
+  fileExtension: "tsx",
+  prettierOptions: null
 });

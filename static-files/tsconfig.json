@@ -15,13 +15,22 @@
     "strictNullChecks": true,
     "suppressImplicitAnyIndexErrors": true,
     "noUnusedLocals": true,
-    "baseUrl": "./",
+    "baseUrl": "./src",
     "allowSyntheticDefaultImports": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
     "strict": true,
     "resolveJsonModule": true
   },
-  "include": ["src"],
-  "exclude": ["node_modules"]
+  "include": [
+    "src",
+    "json-modules.d.ts",
+    "svg-modules.d.ts",
+    "css-modules.d.ts"
+  ],
+  "exclude": ["node_modules"],
+  "paths": {
+    "@assets/*": ["src/assets/*"],
+    "@components/*": ["src/components/*"]
+  }
 }
