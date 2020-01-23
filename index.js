@@ -1,15 +1,15 @@
 /* eslint-env node */
 /* eslint-disable no-console */
-const chalk = require('chalk');
-const fs = require('fs');
-const { copySync, ensureDirSync } = require('fs-extra');
-const path = require('path');
+const chalk = require("chalk");
+const fs = require("fs");
+const { copySync, ensureDirSync } = require("fs-extra");
+const path = require("path");
 
-const canWriteFiles = require('./utils/can-write-files');
-const createApiHelper = require('./templates/api-helper/create-api-helper');
-const createPackageJson = require('./templates/package-json/create-package-json');
-const createReadme = require('./templates/readme/create-readme');
-const filterFiles = require('./utils/filter-files');
+const canWriteFiles = require("./utils/can-write-files");
+const createApiHelper = require("./templates/api-helper/create-api-helper");
+const createPackageJson = require("./templates/package-json/create-package-json");
+const createReadme = require("./templates/readme/create-readme");
+const filterFiles = require("./utils/filter-files");
 
 function writeFiles({
   authorEmail,
@@ -22,7 +22,7 @@ function writeFiles({
   useResponsiveImages
 }) {
   return new Promise(async (resolve, reject) => {
-    const templateDir = path.join(__dirname, 'templates');
+    const templateDir = path.join(__dirname, "templates");
 
     try {
       await canWriteFiles(projectPath);
@@ -35,7 +35,7 @@ function writeFiles({
       // Make build directory if it doesn't exist
       ensureDirSync(projectPath);
 
-      copySync(path.join(__dirname, 'static-files'), projectPath, {
+      copySync(path.join(__dirname, "static-files"), projectPath, {
         filter: filterFiles.bind(null, {
           useAnalyticsHelper,
           useMessenger,
@@ -45,13 +45,13 @@ function writeFiles({
 
       // README.md
       fs.writeFileSync(
-        path.join(projectPath, 'README.md'),
+        path.join(projectPath, "README.md"),
         createReadme({ projectName })
       );
 
       // package.json
       fs.writeFileSync(
-        path.join(projectPath, 'package.json'),
+        path.join(projectPath, "package.json"),
         createPackageJson({
           authorEmail,
           authorName,
@@ -63,10 +63,10 @@ function writeFiles({
 
       // eslintrc
       // This was moved to 'templates' because it messed up autoformatting when editing files in 'static-files'
-      fs.copyFileSync(
-        path.join(templateDir, 'eslintrc/.eslintrc.json'),
-        path.join(projectPath, '.eslintrc.json')
-      );
+      // fs.copyFileSync(
+      //   path.join(templateDir, "eslintrc/.eslintrc.json"),
+      //   path.join(projectPath, ".eslintrc.json")
+      // );
 
       // // api-helper
       // if (useApiHelper) {
@@ -78,8 +78,8 @@ function writeFiles({
 
       return resolve({
         messages: [
-          { emoji: '🦄', text: chalk.greenBright('All done!\n') },
-          { text: 'Next steps:' }
+          { emoji: "🦄", text: chalk.greenBright("All done!\n") },
+          { text: "Next steps:" }
         ]
           .concat(
             projectPath !== process.cwd()
@@ -92,13 +92,13 @@ function writeFiles({
           )
           .concat([
             {
-              text: `• ${chalk.blueBright('yarn')} or ${chalk.cyan(
-                'npm install'
+              text: `• ${chalk.blueBright("yarn")} or ${chalk.cyan(
+                "npm install"
               )} to install dependencies,`
             },
             {
-              text: `• ${chalk.blueBright('yarn dev')} or ${chalk.cyan(
-                'npm run dev'
+              text: `• ${chalk.blueBright("yarn dev")} or ${chalk.cyan(
+                "npm run dev"
               )} to start working!\n`
             }
           ])

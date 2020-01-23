@@ -1,21 +1,78 @@
-#!/usr/bin/env node
-/* eslint-env node */
-/* eslint-disable no-console */
-const chalk = require('chalk');
+const fs = require("fs");
+const fsExtra = require("fs-extra");
+const path = require("path");
+const prompt = require("@creuna/prompt");
 
-const blue = chalk.blueBright;
-const cyan = chalk.cyan;
+const emoji = require("../utils/emoji");
+const messages = require("../utils/messages");
 
-console.log(
-  `🤗  Hey! ${blue('creuna-new')} has been deprecated. Use ${blue(
-    '@creuna/cli'
-  )} instead! It's much nicer.
-  • ${blue('yarn global remove @creuna/create-react-app')} or ${cyan(
-    'npm uninstall -g @creuna/create-react-app'
-  )}
-  • ${blue('yarn global add @creuna/cli')} or ${cyan(
-    'npm install -g @creuna/cli'
-  )}
-  • ${blue('creuna')}
-  `
-);
+const getNewAppInput = () => {
+  return prompt({
+    projectName: `${emoji("🚀")} Project name (kebab-case)`,
+    authorName: `${emoji("😸")} Your full name`,
+    authorEmail: `${emoji("💌")} Your email address`,
+    useApiHelper: {
+      text: `${emoji("☁️")} Include API-helper?`,
+      type: Boolean
+    },
+    useMessenger: {
+      text: `${emoji("💬")} Include message helper for API?`,
+      type: Boolean
+    },
+    useAnalyticsHelper: {
+      text: `${emoji("📈")} Include Analytics helper?`,
+      type: Boolean
+    },
+    useResponsiveImages: {
+      text: `${emoji("🖼️")} Include responsive images helper?`,
+      type: Boolean
+    },
+    shouldWriteVSCodeTasks: {
+      text: `${emoji("💻")} Include VS Code shortcuts for react scripts?`,
+      type: Boolean
+    }
+  });
+};
+
+const projectPath = path.join(process.cwd(), process.argv[2] || "");
+
+createApp = async projectPath => {
+  const appCreator = require("../index.js");
+
+  try {
+    await appCreator.canWriteFiles(projectPath);
+
+    const answers = await getNewAppInput();
+    const response = await appCreator.writeFiles(
+      Object.assign({}, answers, { projectPath })
+    );
+
+    if (answers.shouldWriteVSCodeTasks) {
+      fsExtra.ensureDirSync(path.join(projectPath, ".vscode"));
+      fs.copyFileSync(
+        path.join(__dirname, "tasks.json"),
+        path.join(projectPath, ".vscode", "tasks.json")
+      );
+    }
+
+    const creunaRcContent = {
+      componentsPath: "source/components",
+      staticSitePath: "source/static-site/pages",
+      dataFileContent: "{}",
+      dataFileExtension: "json"
+    };
+
+    fs.writeFileSync(
+      path.join(projectPath, ".creunarc.json"),
+      JSON.stringify(creunaRcContent, null, 2)
+    );
+
+    messages.emptyLine();
+    messages.messageList(response.messages);
+    messages.emptyLine();
+  } catch (error) {
+    messages.error(error);
+  }
+};
+
+createApp(projectPath);

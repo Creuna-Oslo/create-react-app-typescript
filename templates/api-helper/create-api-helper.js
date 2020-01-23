@@ -1,49 +1,47 @@
 /* eslint-env node */
 /* eslint-disable no-console */
-const fs = require('fs');
-const path = require('path');
-const prettier = require('prettier');
-
-const eslintrc = require('../../.eslintrc.json');
+const fs = require("fs");
+const path = require("path");
+const prettier = require("prettier");
 
 function readFile(filePath) {
-  return fs.readFileSync(path.join(__dirname, filePath), { encoding: 'utf-8' });
+  return fs.readFileSync(path.join(__dirname, filePath), { encoding: "utf-8" });
 }
 
 module.exports = function({ useAnalyticsHelper, useMessenger }) {
-  const baseFile = readFile('api-helper.template.js');
-  const analyticsHandler = readFile('handle-analytics.partial.js');
-  const messengerFetchError = readFile('messenger-fetch-error.partial.js');
-  const messageHandler = readFile('handle-message.partial.js');
+  const baseFile = readFile("api-helper.template.js");
+  const analyticsHandler = readFile("handle-analytics.partial.js");
+  const messengerFetchError = readFile("messenger-fetch-error.partial.js");
+  const messageHandler = readFile("handle-message.partial.js");
 
   const newFileContent = prettier.format(
     baseFile
       .replace(
-        '//$analyticsImport',
-        useAnalyticsHelper ? `import analytics from './analytics';` : ''
+        "//$analyticsImport",
+        useAnalyticsHelper ? `import analytics from './analytics';` : ""
       )
-      .replace('//$handleAnalytics', useAnalyticsHelper ? analyticsHandler : '')
+      .replace("//$handleAnalytics", useAnalyticsHelper ? analyticsHandler : "")
       .replace(
-        '//$callAnalyticsHandler',
-        useAnalyticsHelper ? '.then(handleAnalytics)' : ''
+        "//$callAnalyticsHandler",
+        useAnalyticsHelper ? ".then(handleAnalytics)" : ""
       )
       .replace(
-        '//$messengerImport',
+        "//$messengerImport",
         useMessenger
           ? `import getData from '@creuna/utils/get-data';
         import messenger from './messenger';`
-          : ''
+          : ""
       )
-      .replace('//$handleMessage', useMessenger ? messageHandler : '')
+      .replace("//$handleMessage", useMessenger ? messageHandler : "")
       .replace(
-        '//$callMessageHandler',
-        useMessenger ? '.then(handleUserMessages)' : ''
+        "//$callMessageHandler",
+        useMessenger ? ".then(handleUserMessages)" : ""
       )
       .replace(
-        '//$messengerFetchError',
-        useMessenger ? messengerFetchError : ''
-      ),
-    Object.assign({ parser: 'babel' }, eslintrc.rules['prettier/prettier'][1])
+        "//$messengerFetchError",
+        useMessenger ? messengerFetchError : ""
+      )
+    //Object.assign({ parser: 'babel' }, eslintrc.rules['prettier/prettier'][1])
   );
 
   return newFileContent;

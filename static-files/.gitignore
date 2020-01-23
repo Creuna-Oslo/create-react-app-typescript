@@ -21,3 +21,9 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+dist
+
+src/app.components.tsx
+src/static-site/pages.tsx
+src/static-site/paths.tsx
