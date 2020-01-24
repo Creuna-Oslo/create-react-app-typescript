@@ -50,30 +50,6 @@ api.execute(url, data).then(response => {
 
 ---
 
-### 💬 Include message helper for API?
-
-If you select this, `source/js/messenger.js` and `source/components/message` will be included. Also, the messenger helper is automagically wired up with the API-helper.
-
-#### Usage:
-
-For the messenger helper to work, API responses have to be formatted as follows:
-
-```
-{
-  "success": true,
-  "messageToUser": "Your request succeeded!",
-  "payload": {
-    //actual content of API response
-  }
-}
-```
-
-If an API response includes a `messageToUser`, it will tell the `Message` component to show it. The `success` property tells the `Message` component whether to display the message as an error or as a confirmation. The `Message` component needs to be rendered somewhere in order to work.
-
-When a `payload` object is present in the response, only the content of `payload` will be returned from `api.execute`.
-
----
-
 ### 📈 Include Analytics helper?
 
 If you select this, `source/js/analytics.js` will be included and wired up to work with the API-helper.

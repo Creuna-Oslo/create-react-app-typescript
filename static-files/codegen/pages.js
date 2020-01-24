@@ -13,7 +13,7 @@ const commonOptions = {
   searchPath: path.join(staticSitePath, "pages"),
   fileHeader: disclaimers,
   outputPath: staticSitePath,
-  fileExtension: "tsx"
+  fileExtension: ".tsx"
 };
 
 createPagesFile(Object.assign({}, commonOptions, { fileName: "pages.tsx" }));

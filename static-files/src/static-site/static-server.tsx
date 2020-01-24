@@ -9,8 +9,13 @@ export default (input: any): string => {
   const { isProduction, path, webpackStats } = input;
   const files = Object.keys(webpackStats.compilation.assets);
   const css = files.filter(value => value.match(/\.css$/));
+  console.log("Css files:", css);
   const js = files
-    .filter(value => value.match(/\.js$/))
+    .filter(
+      value =>
+        value.match(/\.js$/) &&
+        (value.includes("client") || value.includes("vendor"))
+    )
     .sort()
     .reverse();
   const context = {};

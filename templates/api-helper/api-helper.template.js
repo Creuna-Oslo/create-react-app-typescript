@@ -3,10 +3,10 @@
 
 const defaultFetchOptions = {
   headers: {
-    Accept: 'application/json',
-    'Content-Type': 'application/json'
+    Accept: "application/json",
+    "Content-Type": "application/json"
   },
-  credentials: 'include'
+  credentials: "include"
 };
 
 function parseResponse(response) {
@@ -53,7 +53,7 @@ function post(endpoint, data) {
     endpoint,
     Object.assign({}, defaultFetchOptions, {
       body: data,
-      method: 'post'
+      method: "post"
     })
   );
 }
@@ -63,7 +63,7 @@ function get(endpoint) {
 }
 
 function execute(endpoint, data) {
-  if (endpoint.indexOf('/static-site/api') !== -1) {
+  if (endpoint.indexOf("/static-site/api") !== -1) {
     return new Promise(resolve => {
       setTimeout(() => {
         resolve(request(endpoint, defaultFetchOptions));

@@ -146,7 +146,7 @@ module.exports = (env = {}, options = {}) => {
             name: "style",
             match: /\.js(.map)?$/
           }
-        ].concat(shouldBuildStaticSite ? ["server"] : [])
+        ].concat(shouldBuildStaticSite ? [] : [])
       )
     ]
       .concat(

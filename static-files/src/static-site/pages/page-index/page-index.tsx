@@ -18,7 +18,7 @@ interface Group {
   pages: Array<Page>;
 }
 
-const PageIndex = () => {
+export const PageIndex = () => {
   const pages: Array<Page> = importedPages;
   const groups: Array<Group> = pages.reduce((accumulator: any, page: Page) => {
     const group = accumulator[page.group] || [];
@@ -63,5 +63,3 @@ const PageIndex = () => {
     </div>
   );
 };
-
-export default PageIndex;

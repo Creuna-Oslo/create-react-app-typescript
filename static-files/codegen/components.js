@@ -15,6 +15,6 @@ createComponentsFile({
   fileName: "app.components.tsx",
   outputPath: sourcePath,
   searchPath: path.join(sourcePath, "components"),
-  fileExtension: "tsx",
+  fileExtension: ".tsx",
   prettierOptions: null
 });
